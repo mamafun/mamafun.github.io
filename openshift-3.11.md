@@ -63,12 +63,49 @@ weight: 2
 
 1. Install Docker 1.13:
 ```
+# subscription-manager repos --enable=rhel-7-server-extras-rpms
 # yum install docker-1.13.1
+# systemctl start docker
 ```
 
 2. Verify that version 1.13 was installed:
 ```
 # rpm -V docker-1.13.1
 # docker version
+```
+
+### Installing OKD (Running the RPM-based installer)
+
+1. Change to the playbook directory and run the prerequisites.yml playbook. This playbook installs required software packages, if any, and modifies the container runtimes. Unless you need to configure the container runtimes, run this playbook only once, before you deploy a cluster the first time:
+```
+# /root/openshift-ansible
+# ansible-playbook -i inventory/hosts.localhost playbooks/prerequisites.yml
+```
+
+2. Initiate the cluster installation:
+```
+# ansible-playbook -i inventory/hosts.localhost playbooks/deploy_cluster.yml
+```
+
+### Verifying the Installation
+
+1. Verify that the master is started and nodes are registered and reporting in Ready status. On the master host, run the following command as root:
+```
+# oc get nodes
+NAME                   STATUS    ROLES     AGE       VERSION
+master.example.com     Ready     master    7h        v1.9.1+a0ce1bc657
+node1.example.com      Ready     compute   7h        v1.9.1+a0ce1bc657
+node2.example.com      Ready     compute   7h        v1.9.1+a0ce1bc657
+```
+
+2. To verify that the web console is installed correctly, use the master host name and the web console port number to access the web console with a web browser.
+
+For example, for a master host with a host name of localhost and using the default port of 8443, the web console URL is https://localhost:8443/console.
+
+### Uninstalling a OKD cluster
+
+To uninstall OKD across all hosts in your cluster, change to the playbook directory and run the playbook using the inventory file you used most recently:
+```
+# ansible-playbook -i inventory/hosts.localhost playbooks/adhoc/uninstall.yml
 ```
 
