@@ -3,25 +3,25 @@
   
     {
       "title"    : "Home",
-      "url"      : "http://localhost:4000/",
+      "url"      : "/",
       "content"  : "\n"
     },
     
     {
       "title"    : "Installation Memo",
-      "url"      : "http://localhost:4000/installation.html",
+      "url"      : "/installation.html",
       "content"  : "\n"
     },
     
     {
       "title"    : "Kubernetes",
-      "url"      : "http://localhost:4000/kubernetes.html",
+      "url"      : "/kubernetes.html",
       "content"  : "\n"
     },
     
     {
       "title"    : "Openshift 3.11",
-      "url"      : "http://localhost:4000/openshift-3.11.html",
+      "url"      : "/openshift-3.11.html",
       "content"  : "\n"
     },
     {}
