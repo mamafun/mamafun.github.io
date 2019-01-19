@@ -4,25 +4,25 @@
     {
       "title"    : "Home",
       "url"      : "/",
-      "content"  : ""
+      "content"  : "\n"
     },
     
     {
       "title"    : "Installation Memo",
       "url"      : "/installation.html",
-      "content"  : ""
+      "content"  : "\n"
     },
     
     {
       "title"    : "Kubernetes",
       "url"      : "/kubernetes.html",
-      "content"  : ""
+      "content"  : "\n"
     },
     
     {
       "title"    : "Openshift 3.11",
       "url"      : "/openshift-3.11.html",
-      "content"  : "## Environment\n\n- rhel-server-7.6-x86_64-dvd.iso\n- Bare-metal machine x1\n\n## Reference\n\n- https://docs.okd.io/latest/install/index.html\n\n## Deployment\n\n### Ensuring host access\n\n1. Generate an SSH key on the host you run the installation playbook on:\n```\n# ssh-keygen\n```\n\n2. Distribute the key to localhost\n```\n# ssh-copy-id -i ~/.ssh/id_rsa.pub localhost\n```\n\n### Installing base packages\n\n1. Install the following base packages:\n```\n# yum install wget git net-tools bind-utils yum-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct\n```\n\n2. (install with RPM-based installer) Install Ansible. To use EPEL as a package source for Ansible.\n    1. Install the EPEL repository:\n    ```\n     # yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm\n    ```\n\n    2. Disable the EPEL repository globally so that it is not accidentally used during later steps of the installation:\n    ```\n    # sed -i -e \"s/^enabled=1/enabled=0/\" /etc/yum.repos.d/epel.repo\n    ```\n\n    3. Install the packages for Ansible:\n    ```\n    # yum -y --enablerepo=epel install ansible pyOpenSSL\n    ```\n\n3. Clone the openshift/openshift-ansible repository from GitHub, which provides the required playbooks and configuration files:\n```\n# cd ~\n# git clone https://github.com/openshift/openshift-ansible\n# cd openshift-ansible\n# git checkout release-3.11\n```\n\n### Installing Docker\n\n1. Install Docker 1.13:\n```\n# yum install docker-1.13.1\n```\n\n2. Verify that version 1.13 was installed:\n```\n# rpm -V docker-1.13.1\n# docker version\n```\n\n"
+      "content"  : "Environment\n\n\n  rhel-server-7.6-x86_64-dvd.iso\n  Bare-metal machine x1\n\n\nReference\n\n\n  https://docs.okd.io/latest/install/index.html\n\n\nDeployment\n\nEnsuring host access\n\n\n  Generate an SSH key on the host you run the installation playbook on:\n    # ssh-keygen\n    \n  \n  Distribute the key to localhost\n    # ssh-copy-id -i ~/.ssh/id_rsa.pub localhost\n    \n  \n\n\nInstalling base packages\n\n\n  Install the following base packages:\n    # yum install wget git net-tools bind-utils yum-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct\n    \n  \n  (install with RPM-based installer) Install Ansible. To use EPEL as a package source for Ansible.\n    \n      Install the EPEL repository:\n          # yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm\n        \n      \n      Disable the EPEL repository globally so that it is not accidentally used during later steps of the installation:\n         # sed -i -e \"s/^enabled=1/enabled=0/\" /etc/yum.repos.d/epel.repo\n        \n      \n      Install the packages for Ansible:\n         # yum -y --enablerepo=epel install ansible pyOpenSSL\n        \n      \n    \n  \n  Clone the openshift/openshift-ansible repository from GitHub, which provides the required playbooks and configuration files:\n    # cd ~\n# git clone https://github.com/openshift/openshift-ansible\n# cd openshift-ansible\n# git checkout release-3.11\n    \n  \n\n\nInstalling Docker\n\n\n  Install Docker 1.13:\n    # yum install docker-1.13.1\n    \n  \n  Verify that version 1.13 was installed:\n    # rpm -V docker-1.13.1\n# docker version\n    \n  \n\n\n"
     },
     {}
 ]
