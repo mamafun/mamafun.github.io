@@ -3,7 +3,7 @@
 layout: page
 title: Kubernetes
 menu: Kubernetes
-parent: kubernetes.md
+parent: installation.md
 weight: 1
 ---
 
