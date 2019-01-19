@@ -92,17 +92,15 @@ weight: 2
 1. Verify that the master is started and nodes are registered and reporting in Ready status. On the master host, run the following command as root:
 ```
 # oc get nodes
-NAME                   STATUS    ROLES     AGE       VERSION
-master.example.com     Ready     master    7h        v1.9.1+a0ce1bc657
-node1.example.com      Ready     compute   7h        v1.9.1+a0ce1bc657
-node2.example.com      Ready     compute   7h        v1.9.1+a0ce1bc657
+NAME                    STATUS    ROLES                  AGE       VERSION
+localhost.localdomain   Ready     compute,infra,master   14m       v1.11.0+d4cacc0
 ```
 
 2. To verify that the web console is installed correctly, use the master host name and the web console port number to access the web console with a web browser.
 
 For example, for a master host with a host name of localhost and using the default port of 8443, the web console URL is https://localhost:8443/console.
 
-### Uninstalling a OKD cluster
+### Uninstalling an OKD cluster
 
 To uninstall OKD across all hosts in your cluster, change to the playbook directory and run the playbook using the inventory file you used most recently:
 ```
