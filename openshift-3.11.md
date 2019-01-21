@@ -78,7 +78,7 @@ weight: 2
 
 1. Change to the playbook directory and run the prerequisites.yml playbook. This playbook installs required software packages, if any, and modifies the container runtimes. Unless you need to configure the container runtimes, run this playbook only once, before you deploy a cluster the first time:
 ```
-# /root/openshift-ansible
+# cd /root/openshift-ansible
 # ansible-playbook -i inventory/hosts.localhost playbooks/prerequisites.yml
 ```
 
