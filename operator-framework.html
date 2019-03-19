@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+
+
+
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-indigo.min.css" />
+<link rel="stylesheet" href="/assets/jekyll-materialdocs.css">
+<title>Operator Framework | mamafun: Hi</title>
+
+  </head>
+  <body>
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">
+            <h1 id="page-title" class="mdl-typography--title">Operator Framework</h1>
+          </span>
+          
+            <div class="mdl-layout-spacer"></div>
+            <a href="/search" class="mdl-button mdl-js-button mdl-button--icon">
+              <i class="material-icons">search</i>
+            </a>
+          
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">
+          
+          <a id="site-title" href="/">mamafun: Hi</a>
+        </span>
+        <nav class="mdl-navigation">
+          
+
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+      
+        <a class="mdl-navigation__link parent" href="/">Home</a>
+        
+          
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+                
+              
+            
+          
+            
+              
+                
+              
+            
+          
+            
+              
+                
+                  
+                
+              
+            
+          
+            
+              
+                
+                  
+                
+              
+            
+          
+            
+              
+                
+                  
+                
+              
+            
+          
+            
+              
+                
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+
+  
+    
+      
+        <a class="mdl-navigation__link parent is-active" href="/installation.html">Installation Memo</a>
+        
+          
+            
+          
+            
+              
+            
+          
+            
+              
+            
+          
+            
+              
+                
+              
+            
+          
+            
+              
+                
+              
+            
+          
+            
+              
+                
+                  
+                    <a class="mdl-navigation__link child" href="/kubernetes.html">Kubernetes</a>
+                  
+                
+              
+            
+          
+            
+              
+                
+                  
+                    <a class="mdl-navigation__link child" href="/openshift-3.11.html">Openshift 3.11</a>
+                  
+                
+              
+            
+          
+            
+              
+                
+                  
+                    <a class="mdl-navigation__link child" href="/openshift-4.0.html">Openshift 4.0 (Draft)</a>
+                  
+                
+              
+            
+          
+            
+              
+                
+                  
+                    <a class="mdl-navigation__link child is-active" href="/operator-framework.html">Operator Framework</a>
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+      
+    
+  
+
+
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <div class="content">
+            <h2 id="background">Background</h2>
+
+<h3 id="olm-architecture">OLM Architecture</h3>
+
+<p><a href="https://github.com/operator-framework/operator-lifecycle-manager/blob/274df58592c2ffd1d8ea56156c73c7746f57efc0/Documentation/design/architecture.md">OLM Architecture</a></p>
+
+<h3 id="operator-framework-object-map">Operator Framework Object Map</h3>
+<p><img src="./img/obj-map.png" alt="object map" /></p>
+
+<h2 id="deploy-operator-framework">Deploy Operator Framework</h2>
+
+<h3 id="deploy-olm-and-catalog-operator">Deploy OLM and Catalog Operator</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/operator-framework/operator-lifecycle-manager.git
+$ sed -i 's/image: quay.io\/coreos\/olm@.*/image: quay.io\/openshift\/origin-operator-lifecycle-manager:latest/g' ./deploy/upstream/manifests/latest/*
+$ kubectl create -f deploy/upstream/manifests/latest/
+</code></pre></div></div>
+<p>Refer to <a href="https://github.com/operator-framework/operator-lifecycle-manager/blob/master/Documentation/install/install.md">Install document</a> for details.</p>
+
+<h3 id="deploy-marketplace-operator">Deploy Marketplace Operator</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/operator-framework/operator-marketplace.git
+$ kubectl apply -f deploy/upstream
+</code></pre></div></div>
+<p>Refer to <a href="https://github.com/operator-framework/operator-marketplace/blob/master/README.md">README.md</a> for details.</p>
+
+<h2 id="workflow">Workflow</h2>
+
+<ol>
+  <li>Operator developer prepares all <a href="https://github.com/operator-framework/operator-lifecycle-manager/blob/master/Documentation/design/building-your-csv.md">CSV</a>, CRD, and Package yamls.</li>
+  <li>Operator developer uses <a href="https://github.com/operator-framework/operator-courier/#usage"><code class="highlighter-rouge">operator-courier</code></a> to verify and push operator bundle to the Quay application repository.</li>
+  <li>Cluster admin creates <a href="https://github.com/operator-framework/operator-marketplace#description"><code class="highlighter-rouge">OperatorSource</code></a> CR to add the operator source into cluster. (All operators under the same Quay namespace share the same <code class="highlighter-rouge">OperatorSource</code>)</li>
+  <li>Cluster admin creates <a href="https://github.com/operator-framework/operator-marketplace/blob/master/README.md#description"><code class="highlighter-rouge">CatalogSourceConfig</code></a> to enable selected operators in <code class="highlighter-rouge">OperatorSource</code> to <code class="highlighter-rouge">CatalogSource</code></li>
+  <li>Cluster admin creates <a href="https://github.com/operator-framework/operator-lifecycle-manager/blob/master/Documentation/design/operatorgroups.md"><code class="highlighter-rouge">OperatorGroup</code></a> for target namespaces where operators are going to be installed into.</li>
+  <li>Cluster admin creates <code class="highlighter-rouge">Subscription</code> to subscribe operators.</li>
+  <li><em>Catalog Operator</em> will reconcile to <code class="highlighter-rouge">Subscription</code> and create <code class="highlighter-rouge">InstallPlan</code>.</li>
+  <li><em>Catalog Operator</em> will reconcile to <code class="highlighter-rouge">InstallPlan</code> and create corresponding <code class="highlighter-rouge">ClusterServiceVersion</code>.</li>
+  <li><em>OLM Operator</em> reconciles to <code class="highlighter-rouge">ClusterServiceVersion</code> and make operators started.</li>
+  <li>User creates CRs defined by operators to create services.</li>
+</ol>
+
+
+          </div>
+        </div>
+      </main>
+      <footer>
+        <p id="copyright">&copy; 2019 mamafun: Hi</p>
+
+      </footer>
+    </div>
+  </body>
+</html>
