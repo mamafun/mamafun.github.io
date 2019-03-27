@@ -34,6 +34,15 @@ $ kubectl apply -f deploy/upstream
 Refer to [README.md](https://github.com/operator-framework/operator-marketplace/blob/master/README.md) for details.
 
 
+### Visualize Operator Framework on OKD 3.11
+
+1. Prepare an OKD 3.11 cluster
+2. Edit openshift-console deployment to replace ```image: docker.io/openshift/origin-console:v3.11``` to ```image: docker.io/openshift/origin-console:v4.0.0```
+```
+$ oc edit pod console-67dd586f67-7bsxt -n openshift-console
+```
+3. login to openshift GUI at ```<your openshift cluster>/operatorhub/all-namespaces```
+
 ## Workflow
 
 1. Operator developer prepares all [CSV](https://github.com/operator-framework/operator-lifecycle-manager/blob/master/Documentation/design/building-your-csv.md), CRD, and Package yamls.
