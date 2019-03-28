@@ -243,7 +243,7 @@ $ kubectl apply -f deploy/upstream
 </code></pre></div></div>
 <p>Refer to <a href="https://github.com/operator-framework/operator-marketplace/blob/master/README.md">README.md</a> for details.</p>
 
-<h3 id="visualize-operator-framework-on-okd-311">Visualize Operator Framework on OKD 3.11</h3>
+<h3 id="visualize-operatorhub-in-okd-311">Visualize OperatorHub in OKD 3.11</h3>
 
 <ol>
   <li>Prepare an OKD 3.11 cluster</li>
@@ -268,6 +268,52 @@ $ kubectl apply -f deploy/upstream
   <li><em>OLM Operator</em> reconciles to <code class="highlighter-rouge">ClusterServiceVersion</code> and make operators started.</li>
   <li>User creates CRs defined by operators to create services.</li>
 </ol>
+
+<h3 id="examples">Examples</h3>
+
+<ol>
+  <li>Import <strong>operatorsource</strong> provided by Federator.ai
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ kubectl apply -f prophetstor-operatorsource.yaml
+ $ cat prophetstor-operatorsource.yaml
+ apiVersion: operators.coreos.com/v1
+ kind: OperatorSource
+ metadata:
+   name: prophetstor-operators
+   namespace: openshift-marketplace
+ spec:
+   type: appregistry
+   endpoint: https://quay.io/cnr
+   registryNamespace: prophetstor
+   displayName: "prophetstor Operators"
+   publisher: "prophetstor"
+</code></pre></div>    </div>
+
+    <p>You should see the FederatorAI Operator in the UI.
+ <img src="./img/operatorsource.png" alt="operatorhub" /></p>
+  </li>
+  <li>
+    <p>Subscribe Federator.ai operator
+ <img src="./img/subscribeoperator.png" alt="subscribe" /></p>
+  </li>
+  <li>
+    <p>Configure namespace and approval strategy
+ <img src="./img/subscribesetting.png" alt="config subscription" /></p>
+  </li>
+  <li>
+    <p>(Optional) Approve Federator.ai operator <strong>InstallPlan</strong> if you toggle <em>Manual</em> approval strategy when you were subscribing Federator.ai operator</p>
+  </li>
+  <li>
+    <p>Check subscription status
+ <img src="./img/subscribestatus.png" alt="subscription status" /></p>
+  </li>
+  <li>
+    <p>Check installed ClusterServiceVersion
+ <img src="./img/csv.png" alt="csv" /></p>
+  </li>
+  <li>When Federator.ai <strong>ClusterServiceVersion</strong> of Federator.ai operator is created, we can create an <strong>AlamedaService</strong> CR to start deploy Alameda
+ <img src="./img/createcr.png" alt="create alamedaservice" /></li>
+</ol>
+
 
 
           </div>
