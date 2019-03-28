@@ -231,7 +231,6 @@
 <h3 id="deploy-olm-and-catalog-operator">Deploy OLM and Catalog Operator</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/operator-framework/operator-lifecycle-manager.git
-$ sed -i 's/image: quay.io\/coreos\/olm@.*/image: quay.io\/openshift\/origin-operator-lifecycle-manager:latest/g' ./deploy/upstream/manifests/latest/*
 $ kubectl create -f deploy/upstream/manifests/latest/
 </code></pre></div></div>
 <p>Refer to <a href="https://github.com/operator-framework/operator-lifecycle-manager/blob/master/Documentation/install/install.md">Install document</a> for details.</p>
@@ -242,6 +241,10 @@ $ kubectl create -f deploy/upstream/manifests/latest/
 $ kubectl apply -f deploy/upstream
 </code></pre></div></div>
 <p>Refer to <a href="https://github.com/operator-framework/operator-marketplace/blob/master/README.md">README.md</a> for details.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> If you need to visualize <em>OperatorHub</em> UI in OKD, please deploy market operator in <em>openshift-market</em> namespace.</p>
+</blockquote>
 
 <h3 id="visualize-operatorhub-in-okd-311">Visualize OperatorHub in OKD 3.11</h3>
 
