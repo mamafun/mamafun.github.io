@@ -20,7 +20,6 @@ weight: 4
 
 ```
 $ git clone https://github.com/operator-framework/operator-lifecycle-manager.git
-$ sed -i 's/image: quay.io\/coreos\/olm@.*/image: quay.io\/openshift\/origin-operator-lifecycle-manager:latest/g' ./deploy/upstream/manifests/latest/*
 $ kubectl create -f deploy/upstream/manifests/latest/
 ```
 Refer to [Install document](https://github.com/operator-framework/operator-lifecycle-manager/blob/master/Documentation/install/install.md) for details.
@@ -33,6 +32,7 @@ $ kubectl apply -f deploy/upstream
 ```
 Refer to [README.md](https://github.com/operator-framework/operator-marketplace/blob/master/README.md) for details.
 
+> **Note:** If you need to visualize *OperatorHub* UI in OKD, please deploy market operator in *openshift-market* namespace.
 
 ### Visualize OperatorHub in OKD 3.11
 
