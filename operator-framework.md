@@ -34,7 +34,7 @@ $ kubectl apply -f deploy/upstream
 Refer to [README.md](https://github.com/operator-framework/operator-marketplace/blob/master/README.md) for details.
 
 
-### Visualize Operator Framework on OKD 3.11
+### Visualize OperatorHub in OKD 3.11
 
 1. Prepare an OKD 3.11 cluster
 2. Edit openshift-console deployment to replace ```image: docker.io/openshift/origin-console:v3.11``` to ```image: docker.io/openshift/origin-console:v4.0.0```
@@ -55,3 +55,43 @@ $ oc edit pod console-67dd586f67-7bsxt -n openshift-console
 8. *Catalog Operator* will reconcile to ```InstallPlan``` and create corresponding ```ClusterServiceVersion```.
 9. *OLM Operator* reconciles to ```ClusterServiceVersion``` and make operators started.
 10. User creates CRs defined by operators to create services.
+
+### Examples
+
+1. Import **operatorsource** provided by Federator.ai
+    ```
+    $ kubectl apply -f prophetstor-operatorsource.yaml
+    $ cat prophetstor-operatorsource.yaml
+    apiVersion: operators.coreos.com/v1
+    kind: OperatorSource
+    metadata:
+      name: prophetstor-operators
+      namespace: openshift-marketplace
+    spec:
+      type: appregistry
+      endpoint: https://quay.io/cnr
+      registryNamespace: prophetstor
+      displayName: "prophetstor Operators"
+      publisher: "prophetstor"
+    ```
+
+    You should see the FederatorAI Operator in the UI.
+    ![operatorhub](./img/operatorsource.png)
+
+2. Subscribe Federator.ai operator
+    ![subscribe](./img/subscribeoperator.png)
+
+3. Configure namespace and approval strategy
+    ![config subscription](./img/subscribesetting.png)
+
+4. (Optional) Approve Federator.ai operator **InstallPlan** if you toggle *Manual* approval strategy when you were subscribing Federator.ai operator
+
+5. Check subscription status
+    ![subscription status](./img/subscribestatus.png)
+
+6. Check installed ClusterServiceVersion
+    ![csv](./img/csv.png)
+
+7. When Federator.ai **ClusterServiceVersion** of Federator.ai operator is created, we can create an **AlamedaService** CR to start deploy Alameda
+    ![create alamedaservice](./img/createcr.png)
+
