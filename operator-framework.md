@@ -32,7 +32,7 @@ $ kubectl apply -f deploy/upstream
 ```
 Refer to [README.md](https://github.com/operator-framework/operator-marketplace/blob/master/README.md) for details.
 
-> **Note:** If you need to visualize *OperatorHub* UI in OKD, please deploy market operator in *openshift-market* namespace.
+> **Note:** If you need to visualize *OperatorHub* UI in OKD, please deploy market operator in *openshift-marketplace* namespace.
 
 ### Visualize OperatorHub in OKD 3.11
 
