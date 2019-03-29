@@ -251,7 +251,7 @@ $ kubectl apply -f deploy/upstream
 <ol>
   <li>Prepare an OKD 3.11 cluster</li>
   <li>Edit openshift-console deployment to replace <code class="highlighter-rouge">image: docker.io/openshift/origin-console:v3.11</code> to <code class="highlighter-rouge">image: docker.io/openshift/origin-console:v4.0.0</code>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc edit pod console-67dd586f67-7bsxt -n openshift-console
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ oc edit deployment console -n openshift-console
 </code></pre></div>    </div>
   </li>
   <li>login to openshift GUI at <code class="highlighter-rouge">&lt;your openshift cluster&gt;/operatorhub/all-namespaces</code></li>
