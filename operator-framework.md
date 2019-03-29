@@ -39,7 +39,7 @@ Refer to [README.md](https://github.com/operator-framework/operator-marketplace/
 1. Prepare an OKD 3.11 cluster
 2. Edit openshift-console deployment to replace ```image: docker.io/openshift/origin-console:v3.11``` to ```image: docker.io/openshift/origin-console:v4.0.0```
 ```
-$ oc edit pod console-67dd586f67-7bsxt -n openshift-console
+$ oc edit deployment console -n openshift-console
 ```
 3. login to openshift GUI at ```<your openshift cluster>/operatorhub/all-namespaces```
 
