@@ -16,7 +16,7 @@
     {
       "title"    : "Kubernetes",
       "url"      : "/kubernetes.html",
-      "content"  : ""
+      "content"  : "# CentOS & RHEL\n\n```\n#!/usr/bin/bash\n\n#\niptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X\n\n#\ncat  /etc/yum.repos.d/kubernetes.repo\n[kubernetes]\nname=Kubernetes\nbaseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg\nexclude=kube*\nEOF\n\n# Set SELinux in permissive mode (effectively disabling it)\nsetenforce 0\nsed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config\n\nyum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes\n\n#\nsystemctl enable --now kubelet\n\ncat   /etc/sysctl.d/k8s.conf\nnet.bridge.bridge-nf-call-ip6tables = 1\nnet.bridge.bridge-nf-call-iptables = 1\nEOF\nsysctl --system\n\n# \nkubeadm init --pod-network-cidr=10.244.0.0/16\n\n#\nmkdir -p $HOME/.kube\nsudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config\nsudo chown $(id -u):$(id -g) $HOME/.kube/config\n\n#\nkubectl taint nodes --all node-role.kubernetes.io/master-\n\n# \n#sysctl net.bridge.bridge-nf-call-iptables=1\n#kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml\nkubectl apply -f https://raw.githubusercontent.com/coreos/flannel/a70459be0084506e4ec919aa1c114638878db11b/Documentation/kube-flannel.yml\n\n```\n"
     },
     
     {

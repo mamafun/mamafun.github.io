@@ -217,7 +217,57 @@
       <main class="mdl-layout__content">
         <div class="page-content">
           <div class="content">
-            
+            <h1 id="centos--rhel">CentOS &amp; RHEL</h1>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/bash</span>
+
+<span class="c">#</span>
+iptables <span class="nt">-F</span> <span class="o">&amp;&amp;</span> iptables <span class="nt">-t</span> nat <span class="nt">-F</span> <span class="o">&amp;&amp;</span> iptables <span class="nt">-t</span> mangle <span class="nt">-F</span> <span class="o">&amp;&amp;</span> iptables <span class="nt">-X</span>
+
+<span class="c">#</span>
+<span class="nb">cat</span> <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh"> &gt; /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+exclude=kube*
+</span><span class="no">EOF
+
+</span><span class="c"># Set SELinux in permissive mode (effectively disabling it)</span>
+setenforce 0
+<span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">'s/^SELINUX=enforcing$/SELINUX=permissive/'</span> /etc/selinux/config
+
+yum <span class="nb">install</span> <span class="nt">-y</span> kubelet kubeadm kubectl <span class="nt">--disableexcludes</span><span class="o">=</span>kubernetes
+
+<span class="c">#</span>
+systemctl <span class="nb">enable</span> <span class="nt">--now</span> kubelet
+
+<span class="nb">cat</span> <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh"> &gt;  /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+</span><span class="no">EOF
+</span>sysctl <span class="nt">--system</span>
+
+<span class="c"># </span>
+kubeadm init <span class="nt">--pod-network-cidr</span><span class="o">=</span>10.244.0.0/16
+
+<span class="c">#</span>
+<span class="nb">mkdir</span> <span class="nt">-p</span> <span class="nv">$HOME</span>/.kube
+<span class="nb">sudo cp</span> <span class="nt">-f</span> /etc/kubernetes/admin.conf <span class="nv">$HOME</span>/.kube/config
+<span class="nb">sudo chown</span> <span class="k">$(</span><span class="nb">id</span> <span class="nt">-u</span><span class="k">)</span>:<span class="k">$(</span><span class="nb">id</span> <span class="nt">-g</span><span class="k">)</span> <span class="nv">$HOME</span>/.kube/config
+
+<span class="c">#</span>
+kubectl taint nodes <span class="nt">--all</span> node-role.kubernetes.io/master-
+
+<span class="c"># </span>
+<span class="c">#sysctl net.bridge.bridge-nf-call-iptables=1</span>
+<span class="c">#kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml</span>
+kubectl apply <span class="nt">-f</span> https://raw.githubusercontent.com/coreos/flannel/a70459be0084506e4ec919aa1c114638878db11b/Documentation/kube-flannel.yml
+
+</code></pre></div></div>
 
 
           </div>
