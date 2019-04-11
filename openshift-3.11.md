@@ -87,6 +87,11 @@ weight: 2
 # ansible-playbook -i inventory/hosts.localhost playbooks/deploy_cluster.yml
 ```
 
+> **Note:** add the following directives for using hostname other than localhost  
+openshift_master_cluster_hostname=ocp-internal.\<ip\>.nip.io  
+openshift_master_cluster_public_hostname=ocp-public.\<ip\>.nip.io  
+openshift_master_default_subdomain=apps.\<ip\>.nip.io  
+
 ### Verifying the Installation
 
 1. Verify that the master is started and nodes are registered and reporting in Ready status. On the master host, run the following command as root:
