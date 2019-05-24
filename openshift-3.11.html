@@ -109,6 +109,14 @@
               
             
           
+            
+              
+                
+                  
+                
+              
+            
+          
         
       
     
@@ -156,6 +164,16 @@
               
                 
                   
+                    <a class="mdl-navigation__link child" href="/openshift-3.9.html">Openshift 3.9</a>
+                  
+                
+              
+            
+          
+            
+              
+                
+                  
                     <a class="mdl-navigation__link child is-active" href="/openshift-3.11.html">Openshift 3.11</a>
                   
                 
@@ -183,6 +201,12 @@
             
           
         
+      
+    
+  
+
+  
+    
       
     
   
@@ -270,9 +294,8 @@
   </li>
   <li>Clone the openshift/openshift-ansible repository from GitHub, which provides the required playbooks and configuration files:
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># cd ~
-# git clone https://github.com/openshift/openshift-ansible
+# git clone -b release-3.11 https://github.com/openshift/openshift-ansible
 # cd openshift-ansible
-# git checkout release-3.11
 </code></pre></div>    </div>
   </li>
 </ol>
@@ -309,8 +332,8 @@
 
 <blockquote>
   <p><strong>Note:</strong> add the following directives for using hostname other than localhost<br />
-openshift_master_cluster_hostname=ocp-internal.&lt;ip&gt;.nip.io<br />
-openshift_master_cluster_public_hostname=ocp-public.&lt;ip&gt;.nip.io<br />
+openshift_master_cluster_hostname=okd-internal.&lt;ip&gt;.nip.io<br />
+openshift_master_cluster_public_hostname=okd-public.&lt;ip&gt;.nip.io<br />
 openshift_master_default_subdomain=apps.&lt;ip&gt;.nip.io</p>
 </blockquote>
 
