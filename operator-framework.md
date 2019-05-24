@@ -2,7 +2,7 @@
 layout: page
 title: Operator Framework
 parent: installation.md
-weight: 4
+weight: 5
 ---
 
 ## Background

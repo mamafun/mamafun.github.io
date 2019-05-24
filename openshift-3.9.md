@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Openshift 3.11
+title: Openshift 3.9
 parent: installation.md
-weight: 3
+weight: 2
 ---
 
 ## Environment
@@ -12,7 +12,7 @@ weight: 3
 
 ## Reference
 
-- https://docs.okd.io/latest/install/index.html
+- https://docs.okd.io/3.9/install_config/index.html
 
 ## Deployment
 
@@ -32,29 +32,25 @@ weight: 3
 
 1. Install the following base packages:
 ```
-# yum install wget git net-tools bind-utils yum-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct
+# yum -y install wget git net-tools bind-utils yum-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct
 ```
 
 2. (install with RPM-based installer) Install Ansible. To use EPEL as a package source for Ansible.
-    1. Install the EPEL repository:
+    1. download ansible 2.4.3.0 from https://releases.ansible.com/ansible/
     ```
-     # yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    # wget https://releases.ansible.com/ansible/ansible-2.4.3.0.tar.gz
     ```
-
-    2. Disable the EPEL repository globally so that it is not accidentally used during later steps of the installation:
+    2. Install ansible 2.4.3.0
     ```
-    # sed -i -e "s/^enabled=1/enabled=0/" /etc/yum.repos.d/epel.repo
-    ```
-
-    3. Install the packages for Ansible:
-    ```
-    # yum -y --enablerepo=epel install ansible pyOpenSSL
+    # tar zxvf ansible-2.4.3.0.tar.gz
+    # cd ansible-2.4.3.0/
+    # python setup.py install
     ```
 
 3. Clone the openshift/openshift-ansible repository from GitHub, which provides the required playbooks and configuration files:
 ```
 # cd ~
-# git clone -b release-3.11 https://github.com/openshift/openshift-ansible
+# git clone -b release-3.9 --single-branch https://github.com/openshift/openshift-ansible
 # cd openshift-ansible
 ```
 
@@ -97,7 +93,7 @@ openshift_master_default_subdomain=apps.\<ip\>.nip.io
 ```
 # oc get nodes
 NAME                    STATUS    ROLES                  AGE       VERSION
-localhost.localdomain   Ready     compute,infra,master   14m       v1.11.0+d4cacc0
+localhost.localdomain   Ready     compute,infra,master   14m       v1.9.1+a0ce1bc657
 ```
 
 2. To verify that the web console is installed correctly, use the master host name and the web console port number to access the web console with a web browser.

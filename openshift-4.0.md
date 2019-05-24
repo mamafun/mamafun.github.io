@@ -2,7 +2,7 @@
 layout: page
 title: Openshift 4.0 (Draft)
 parent: installation.md
-weight: 3
+weight: 4
 ---
 
 (Draft)
