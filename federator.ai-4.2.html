@@ -11,7 +11,7 @@
 
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-indigo.min.css" />
 <link rel="stylesheet" href="/assets/jekyll-materialdocs.css">
-<title>Search | mamafun: Hi</title>
+<title>Federator.ai v4.2 | mamafun: Hi</title>
 
   </head>
   <body>
@@ -20,7 +20,7 @@
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
           <span class="mdl-layout-title">
-            <h1 id="page-title" class="mdl-typography--title">Search</h1>
+            <h1 id="page-title" class="mdl-typography--title">Federator.ai v4.2</h1>
           </span>
           
             <div class="mdl-layout-spacer"></div>
@@ -133,7 +133,7 @@
   
     
       
-        <a class="mdl-navigation__link parent" href="/installation.html">Installation Memo</a>
+        <a class="mdl-navigation__link parent is-active" href="/installation.html">Installation Memo</a>
         
           
             
@@ -212,7 +212,7 @@
               
                 
                   
-                    <a class="mdl-navigation__link child" href="/federator.ai-4.2.html">Federator.ai v4.2</a>
+                    <a class="mdl-navigation__link child is-active" href="/federator.ai-4.2.html">Federator.ai v4.2</a>
                   
                 
               
@@ -265,25 +265,98 @@
       <main class="mdl-layout__content">
         <div class="page-content">
           <div class="content">
-            
-  <div id="search-container">
-    <form action="#">
-      <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" id="search">
-        <label class="mdl-textfield__label" for="search">Keywords...</label>
-      </div>
-    </form>
-    <ul class="demo-list-item mdl-list" id="results"></ul>
-  </div>
-  <script src="/assets/simple-jekyll-search.min.js"></script>
-  <script>
-  SimpleJekyllSearch({
-    searchInput: document.getElementById('search'),
-    resultsContainer: document.getElementById('results'),
-    json: "/assets/search.json",
-    searchResultTemplate: '<li class="mdl-list__item"><a href="{url}"><span class="mdl-list__item-primary-content">{title}</span></a></li>'
-  })
-  </script>
+            <h2 id="requirement">Requirement</h2>
+
+<ul>
+  <li>Kubernetes 1.11+</li>
+  <li>Prometheus</li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+  <li>https://github.com/containers-ai/federatorai-operator</li>
+</ul>
+
+<h2 id="deployment">Deployment</h2>
+
+<ol>
+  <li>Checkout the latest tag number of v4.2. Assuming <code class="highlighter-rouge">v4.2.159</code>. Execute the following command and follow the interactive prompt to input settings.
+```
+    <h1 id="curl-httpsrawgithubusercontentcomcontainers-aifederatorai-operator42deployinstallsh-sh--s-v42159">curl https://raw.githubusercontent.com/containers-ai/federatorai-operator/4.2/deploy/install.sh |sh -s v4.2.159</h1>
+    <p>Please input Federator.ai Operator tag: v4.2.159
+Is tag “v4.2.159” correct? [default: y]:
+Downloading file 00-namespace.yaml …
+Done
+Downloading file 01-serviceaccount.yaml …
+Done
+Downloading file 02-alamedaservice.crd.yaml …
+Done
+Downloading file 03-federatorai-operator.deployment.yaml …
+Done
+Downloading file 04-clusterrole.yaml …
+Done
+Downloading file 05-clusterrolebinding.yaml …
+Done
+Downloading file 06-role.yaml …
+Done
+Downloading file 07-rolebinding.yaml …
+Done</p>
+  </li>
+</ol>
+
+<p>Starting apply Federator.ai operator yaml files
+namespace/federatorai created
+serviceaccount/federatorai-operator created
+customresourcedefinition.apiextensions.k8s.io/alamedaservices.federatorai.containers.ai created
+deployment.apps/federatorai-operator created
+clusterrole.rbac.authorization.k8s.io/federatorai-operator created
+clusterrolebinding.rbac.authorization.k8s.io/federatorai-operator created
+role.rbac.authorization.k8s.io/federatorai-operator created
+rolebinding.rbac.authorization.k8s.io/federatorai-operator created
+Processing…
+Waiting for federatorai pods to be ready…</p>
+
+<p>All federatorai pods are ready.</p>
+
+<p>Install Federator.ai operator v4.2.159 successfully</p>
+
+<p>Downloading alamedaservice and alamedascaler sample files …
+Done
+========================================
+Do you want to launch interactive installation of Federator.ai [default: y]:
+Enter the namespace you want to install Federator.ai [default: alameda]:
+Do you want to enable execution? [default: y]: :
+Enter the prometheus service address
+[default: https://prometheus-k8s.openshift-monitoring:9091]: http://prometheus-prometheus-oper-prometheus.monitoring:9090
+Which storage type you would like to use? ephemeral or persistent?
+[default: ephemeral]:</p>
+
+<hr />
+<p>install_namespace = alameda
+enable_execution = true
+prometheus_address = http://prometheus-prometheus-oper-prometheus.monitoring:9090
+storage_type = ephemeral
+—————————————-
+Is the above information correct [default: y]:
+Processing…
+Waiting for alameda pods to be ready…
+Waiting for alameda pods to be ready…
+Waiting for alameda pods to be ready…
+Waiting for alameda pods to be ready…
+Waiting for alameda pods to be ready…
+Waiting for alameda pods to be ready…
+Waiting for alameda pods to be ready…
+Waiting for alameda pods to be ready…
+Waiting for alameda pods to be ready…
+Waiting for alameda pods to be ready…</p>
+
+<p>All alameda pods are ready.</p>
+
+<p>Install Alameda v4.2.159 successfully</p>
+
+<p>Downloaded YAML files are located under /tmp/install-op
+```</p>
 
 
 
